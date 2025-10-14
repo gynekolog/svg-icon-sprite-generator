@@ -1,0 +1,51 @@
+{
+	"name": "svg-icon-sprite-generator",
+	"version": "0.0.0",
+	"description": "A TypeScript package for generating SVG icon sprites with automatic ID generation and configuration constants",
+	"sideEffects": false,
+	"type": "module",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"bin": {
+		"svg-icon-sprite-generator": "dist/cli.js"
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"keywords": [
+		"svg",
+		"sprite",
+		"icons",
+		"typescript",
+		"generator"
+	],
+	"author": "Honza Gál <honza.gal@gmail.com>",
+	"license": "MIT",
+	"repository": "github:gynekolog/svg-icon-sprite-generator",
+	"scripts": {
+		"build": "tsc",
+		"prepublishOnly": "npm run build",
+		"typecheck": "tsc --project tsconfig.json --pretty --noEmit",
+		"lint": "biome check .",
+		"format": "biome check --write .",
+		"check-all": "pnpm run lint && pnpm run format && pnpm run typecheck",
+		"dev": "node dist/cli.js"
+	},
+	"dependencies": {
+		"svg-sprite": "3.0.0-rc3",
+		"yargs": "^18.0.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.2.6",
+		"@types/node": "^22.18.0",
+		"@types/svg-sprite": "^0.0.39",
+		"@types/yargs": "^17.0.33",
+		"typescript": "^5.9.3"
+	},
+	"engines": {
+		"node": ">=22.12.0",
+		"pnpm": ">=10"
+	},
+	"packageManager": "pnpm@10.12.4"
+}
