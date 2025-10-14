@@ -1,11 +1,11 @@
 {
 	"name": "svg-icon-sprite-generator",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "A TypeScript package for generating SVG icon sprites with automatic ID generation and configuration constants",
 	"sideEffects": false,
 	"type": "module",
-	"main": "dist/index.js",
-	"types": "dist/index.d.ts",
+	"main": "dist/cli.js",
+	"types": "dist/types.d.ts",
 	"files": [
 		"dist",
 		"README.md"
@@ -24,7 +24,7 @@
 	"license": "MIT",
 	"repository": "github:gynekolog/svg-icon-sprite-generator",
 	"scripts": {
-		"build": "tsc",
+		"build": "rolldown -c && tsc --emitDeclarationOnly",
 		"prepare": "npm run build && chmod +x dist/cli.js",
 		"prepublishOnly": "npm run build",
 		"typecheck": "tsc --project tsconfig.json --pretty --noEmit",
@@ -42,6 +42,7 @@
 		"@types/node": "^22.18.0",
 		"@types/svg-sprite": "^0.0.39",
 		"@types/yargs": "^17.0.33",
+		"rolldown": "1.0.0-beta.43",
 		"typescript": "^5.9.3"
 	},
 	"engines": {
