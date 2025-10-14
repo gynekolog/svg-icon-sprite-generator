@@ -23,14 +23,14 @@ npx svg-icon-sprite-generator \
   --inputFolder ./icons \
   --outputSpriteFolder ./dist \
   --outputIdsFolder ./types \
-  --outputConstsFolder ./config
+  --outputMetaFolder ./config
 
 # Full customization
 npx svg-icon-sprite-generator \
   --inputFolder ./icons \
   --outputSpriteFolder ./dist \
   --outputIdsFolder ./types \
-  --outputConstsFolder ./config \
+  --outputMetaFolder ./config \
   --outputSpriteFileName my-icons.svg \
   --cssClassName my-icon
 
@@ -46,10 +46,10 @@ npx svg-icon-sprite-generator \
 
 The generator creates three files:
 
-### 1. SVG Sprite (`icons-sprite.svg`)
+### 1. SVG Sprite (`icon-sprite.svg`)
 Contains all your icons as symbols in a single SVG file.
 
-### 2. TypeScript IDs (`icons.generated.ts`)
+### 2. TypeScript IDs (`icon-sprite-ids.generated.ts`)
 ```typescript
 export const icons = {
   "arrow-left": "arrow-left",
@@ -58,11 +58,11 @@ export const icons = {
 } as const;
 ```
 
-### 3. Configuration Constants (`icons-consts.generated.ts`)
+### 3. Configuration Meta (`icon-sprite-meta.generated.ts`)
 ```typescript
-export const iconConsts = {
+export const iconMeta = {
   "className": "ui-icon",
-  "spriteFileName": "icons-sprite.svg",
+  "spriteFileName": "icon-sprite.svg",
   "hash": "a1b2c3d4"
 } as const;
 ```
@@ -73,7 +73,7 @@ export const iconConsts = {
 import clsx from "clsx";
 import type { JSX } from "react";
 import type { icons } from "./icons.generated";
-import { iconConsts } from "./icons-consts.generated";
+import { iconMeta } from "./icons-meta.generated";
 
 type IconType = keyof typeof icons;
 type IconProps = Omit<JSX.IntrinsicElements["svg"], "role" | "children"> & {
@@ -83,9 +83,9 @@ type IconProps = Omit<JSX.IntrinsicElements["svg"], "role" | "children"> & {
 const Icon = ({ icon, className, ...rest }: IconProps) => (
 	<svg
 		{...rest}
-		className={clsx(iconConsts.className, className)}
+		className={clsx(iconMeta.className, className)}
 	>
-		<use href={`/assets/${iconConsts.spriteFileName}?v=${iconConsts.hash}#${icon}`} />
+		<use href={`/assets/${iconMeta.spriteFileName}?v=${iconMeta.hash}#${icon}`} />
 	</svg>
 );
 
@@ -104,12 +104,12 @@ Required:
   --outputIdsFolder                Output folder for IDs file
 
 Optional:
-  --outputConstsFolder             Output folder for constants file (defaults to outputIdsFolder)
-  --outputSpriteFileName           Name of generated sprite file (default: "icons-sprite.svg")
-  --outputIdsFileName              Name of generated IDs file (default: "icons.generated.ts")
+  --outputMetaFolder               Output folder for meta file (defaults to outputIdsFolder)
+  --outputSpriteFileName           Name of generated sprite file (default: "icon-sprite.svg")
+  --outputIdsFileName              Name of generated IDs file (default: "icon-sprite-ids.generated.ts")
   --outputIdsExportedConstName     Name of exported constant in IDs file (default: "icons")
-  --outputConstsFileName           Name of generated constants file (default: "icons-consts.generated.ts")
-  --outputConstsExportedConstName  Name of exported constant in constants file (default: "iconConsts")
+  --outputMetaFileName             Name of generated meta file (default: "icon-sprite-meta.generated.ts")
+  --outputMetaExportedConstName    Name of exported constant in meta file (default: "iconMeta")
   --cssClassName                   CSS class name for icons and CSS variables prefix (default: "ui-icon")
   -v, --verbose                    Verbose output
   -h, --help                       Show help
@@ -125,7 +125,7 @@ await runGenerator({
 	inputFolder: "./my-icons",
 	outputSpriteFolder: "./dist",
 	outputIdsFolder: "./dist",
-	// outputConstsFolder will default to outputIdsFolder
+	// outputMetaFolder will default to outputIdsFolder
 	// Optional: override defaults
 	outputSpriteFileName: "my-sprite.svg",
 	cssClassName: "my-icon",
@@ -141,7 +141,7 @@ const config = {
 	outputSpriteFolder: "./dist",
 	outputIdsFolder: "./types",
 	// Optional: separate folders for different file types
-	outputConstsFolder: "./config",
+	outputMetaFolder: "./config",
 	// Optional overrides
 	cssClassName: "my-icon",
 };
@@ -156,12 +156,12 @@ await runGenerator(config);
 | `inputFolder` | `string` | ✅ | - | Folder containing SVG files |
 | `outputSpriteFolder` | `string` | ✅ | - | Output folder for sprite file |
 | `outputIdsFolder` | `string` | ✅ | - | Output folder for IDs file |
-| `outputConstsFolder` | `string` | ❌ | `outputIdsFolder` | Output folder for constants file |
-| `outputSpriteFileName` | `string` | ❌ | `"icons-sprite.svg"` | Name of generated sprite file |
-| `outputIdsFileName` | `string` | ❌ | `"icons.generated.ts"` | Name of generated IDs file |
+| `outputMetaFolder` | `string` | ❌ | `outputIdsFolder` | Output folder for meta file |
+| `outputSpriteFileName` | `string` | ❌ | `"icon-sprite.svg"` | Name of generated sprite file |
+| `outputIdsFileName` | `string` | ❌ | `"icon-sprite-ids.generated.ts"` | Name of generated IDs file |
 | `outputIdsExportedConstName` | `string` | ❌ | `"icons"` | Name of exported constant in IDs file |
-| `outputConstsFileName` | `string` | ❌ | `"icons-consts.generated.ts"` | Name of generated constants file |
-| `outputConstsExportedConstName` | `string` | ❌ | `"iconConsts"` | Name of exported constant in constants file |
+| `outputMetaFileName` | `string` | ❌ | `"icon-sprite-meta.generated.ts"` | Name of generated meta file |
+| `outputMetaExportedConstName` | `string` | ❌ | `"iconMeta"` | Name of exported constant in meta file |
 | `cssClassName` | `string` | ❌ | `"ui-icon"` | CSS class name for icons and CSS variables prefix |
 
 ## CSS Setup

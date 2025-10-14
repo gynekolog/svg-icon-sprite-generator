@@ -14,12 +14,12 @@ export interface SvgIconSpriteConfig {
 	/** Name of the exported constant in the IDs file */
 	outputIdsExportedConstName: string;
 
-	/** Output folder for the constants file */
-	outputConstsFolder: string;
-	/** Name of the generated constants file */
-	outputConstsFileName: string;
-	/** Name of the exported constant in the constants file */
-	outputConstsExportedConstName: string;
+	/** Output folder for the meta file */
+	outputMetaFolder: string;
+	/** Name of the generated meta file */
+	outputMetaFileName: string;
+	/** Name of the exported constant in the meta file */
+	outputMetaExportedConstName: string;
 
 	/** CSS class name for the icons */
 	cssClassName: string;

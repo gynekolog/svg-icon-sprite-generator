@@ -37,20 +37,19 @@ const argv = await yargs(hideBin(process.argv))
 		description: "Name of exported constant in IDs file",
 		default: DEFAULT_CONFIG.outputIdsExportedConstName,
 	})
-	.option("outputConstsFolder", {
+	.option("outputMetaFolder", {
 		type: "string",
-		description:
-			"Output folder for constants file (defaults to outputIdsFolder)",
+		description: "Output folder for meta file (defaults to outputIdsFolder)",
 	})
-	.option("outputConstsFileName", {
+	.option("outputMetaFileName", {
 		type: "string",
-		description: "Name of generated constants file",
-		default: DEFAULT_CONFIG.outputConstsFileName,
+		description: "Name of generated meta file",
+		default: DEFAULT_CONFIG.outputMetaFileName,
 	})
-	.option("outputConstsExportedConstName", {
+	.option("outputMetaExportedConstName", {
 		type: "string",
-		description: "Name of exported constant in constants file",
-		default: DEFAULT_CONFIG.outputConstsExportedConstName,
+		description: "Name of exported constant in meta file",
+		default: DEFAULT_CONFIG.outputMetaExportedConstName,
 	})
 	.option("cssClassName", {
 		type: "string",
@@ -77,9 +76,9 @@ async function main() {
 			outputIdsFileName: argv.outputIdsFileName,
 			outputIdsExportedConstName: argv.outputIdsExportedConstName,
 			// Use outputIdsFolder as default for other folders if not provided
-			outputConstsFolder: argv.outputConstsFolder || argv.outputIdsFolder,
-			outputConstsFileName: argv.outputConstsFileName,
-			outputConstsExportedConstName: argv.outputConstsExportedConstName,
+			outputMetaFolder: argv.outputMetaFolder || argv.outputIdsFolder,
+			outputMetaFileName: argv.outputMetaFileName,
+			outputMetaExportedConstName: argv.outputMetaExportedConstName,
 			cssClassName: argv.cssClassName,
 		};
 

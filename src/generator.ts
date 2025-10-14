@@ -1,6 +1,6 @@
 import * as path from "node:path";
-import { generateConsts } from "./generateConsts.js";
 import { generateIds } from "./generateIDs.js";
+import { generateMeta } from "./generateMeta.js";
 import { generateSprite } from "./generateSprite.js";
 import { modifySvg } from "./modifySvg.js";
 import type { SvgIconSpriteConfig } from "./types.js";
@@ -35,10 +35,10 @@ export async function runGenerator(config: SvgIconSpriteConfig): Promise<void> {
 		console.log(`${ids.length} IDs generated`);
 
 		console.log("⚙️ Generating constants...");
-		await generateConsts({
-			outputDir: config.outputConstsFolder,
-			outputFileName: config.outputConstsFileName,
-			outputConstName: config.outputConstsExportedConstName,
+		await generateMeta({
+			outputDir: config.outputMetaFolder,
+			outputFileName: config.outputMetaFileName,
+			outputConstName: config.outputMetaExportedConstName,
 			cssClassName: config.cssClassName,
 			spriteFileName: config.outputSpriteFileName,
 			spriteFilePath: PATH_TO_SPRITE,

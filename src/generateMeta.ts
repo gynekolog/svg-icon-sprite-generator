@@ -11,7 +11,7 @@ interface GenerateConfigOptions {
 	spriteFilePath: string;
 }
 
-export async function generateConsts(
+export async function generateMeta(
 	options: GenerateConfigOptions,
 ): Promise<void> {
 	const {

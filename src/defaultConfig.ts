@@ -1,13 +1,13 @@
 import type { SvgIconSpriteConfig } from "./types.js";
 
 export const DEFAULT_CONFIG = {
-	outputSpriteFileName: "icons-sprite.svg",
+	outputSpriteFileName: "icon-sprite.svg",
 
-	outputIdsFileName: "icons.generated.ts",
+	outputIdsFileName: "icon-sprite-ids.generated.ts",
 	outputIdsExportedConstName: "icons",
 
-	outputConstsFileName: "icons-consts.generated.ts",
-	outputConstsExportedConstName: "iconConsts",
+	outputMetaFileName: "icon-sprite-meta.generated.ts",
+	outputMetaExportedConstName: "iconSpriteMeta",
 
 	cssClassName: "ui-icon",
 } satisfies Partial<SvgIconSpriteConfig>;
