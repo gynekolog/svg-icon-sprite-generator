@@ -77,7 +77,7 @@ async function main() {
 			outputIdsFileName: argv.outputIdsFileName,
 			outputIdsExportedConstName: argv.outputIdsExportedConstName,
 			// Use outputIdsFolder as default for other folders if not provided
-			outputConstsFolder: argv.outputConstsFolder || argv.outputSpriteFolder,
+			outputConstsFolder: argv.outputConstsFolder || argv.outputIdsFolder,
 			outputConstsFileName: argv.outputConstsFileName,
 			outputConstsExportedConstName: argv.outputConstsExportedConstName,
 			cssClassName: argv.cssClassName,
