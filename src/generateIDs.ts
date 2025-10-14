@@ -1,5 +1,4 @@
-import * as fs from "node:fs/promises";
-import * as path from "node:path";
+import type { SvgIconSpriteConfig } from "./types.js";
 
 /**
  * Generate a TypeScript file with all the IDs from an SVG file.
@@ -11,18 +10,14 @@ import * as path from "node:path";
  * @property outputConstName - Name of the exported constant
  * @property outputFileName - File name of the generated file
  */
-export async function generateIds(options: {
-	inputFile: string;
-	outputDir: string;
-	outputConstName: string;
-	outputFileName: string;
-}) {
-	const { inputFile, outputDir, outputConstName, outputFileName } = options;
-
-	const content = await fs.readFile(inputFile, "utf8");
-
+export async function generateIds(
+	options: Pick<SvgIconSpriteConfig, "outputIdsExportedConstName"> & {
+		spriteContent: string;
+	},
+) {
 	// Match all opening <symbol> tags (ignoring children)
-	const symbolTags = content.match(/<symbol[\s\S]*?<\/symbol>/g) || [];
+	const symbolTags =
+		options.spriteContent.match(/<symbol[\s\S]*?<\/symbol>/g) || [];
 
 	// Array to hold all IDs found in <symbol> elements
 	const ids: string[] = [];
@@ -39,16 +34,14 @@ export async function generateIds(options: {
 		ids.push(id);
 	}
 
-	const outputPath = path.resolve(outputDir, outputFileName);
-
 	// Create content of the output file
 	let data = "/** Auto-generated file */\n";
-	data += `export const ${outputConstName} = {\n`;
+	data += `export const ${options.outputIdsExportedConstName} = {\n`;
 	data += ids.map((name) => `  "${name}": "${name}",`).join("\n");
 	data += "\n} as const;\n";
 
-	// write content
-	await fs.writeFile(outputPath, data);
-
-	return ids;
+	return {
+		ids,
+		fileContent: data,
+	};
 }

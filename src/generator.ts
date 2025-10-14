@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import * as path from "node:path";
 import { generateIds } from "./generateIDs.js";
 import { generateMeta } from "./generateMeta.js";
@@ -19,30 +20,61 @@ export async function runGenerator(config: SvgIconSpriteConfig): Promise<void> {
 		console.log("📦 Generating sprite...");
 		await generateSprite(config);
 
+		if (!fs.existsSync(PATH_TO_SPRITE)) {
+			throw new Error(`Sprite file not found: ${PATH_TO_SPRITE}`);
+		}
+		let spriteContent = fs.readFileSync(PATH_TO_SPRITE, "utf8");
+
 		console.log("🎨 Modifying SVG...");
-		await modifySvg({
-			inputFile: PATH_TO_SPRITE,
+		spriteContent = await modifySvg({
+			spriteContent,
 			cssClassName: config.cssClassName,
 		});
+
+		/* write the modified SVG to the output folder */
+		const outputSpritePath = path.resolve(
+			config.outputSpriteFolder,
+			config.outputSpriteFileName,
+		);
+		await fs.promises.writeFile(outputSpritePath, spriteContent, "utf8");
 
 		console.log("🔤 Generating IDs...");
-		const ids = await generateIds({
-			inputFile: PATH_TO_SPRITE,
-			outputConstName: config.outputIdsExportedConstName,
-			outputDir: config.outputIdsFolder,
-			outputFileName: config.outputIdsFileName,
+		const generateIdsResult = await generateIds({
+			spriteContent,
+			outputIdsExportedConstName: config.outputIdsExportedConstName,
 		});
-		console.log(`${ids.length} IDs generated`);
+
+		/* write ids file */
+		const outputIdsPath = path.resolve(
+			config.outputIdsFolder,
+			config.outputIdsFileName,
+		);
+		await fs.promises.writeFile(
+			outputIdsPath,
+			generateIdsResult.fileContent,
+			"utf8",
+		);
+		console.log(`${generateIdsResult.ids.length} IDs generated`);
 
 		console.log("⚙️ Generating constants...");
-		await generateMeta({
-			outputDir: config.outputMetaFolder,
-			outputFileName: config.outputMetaFileName,
-			outputConstName: config.outputMetaExportedConstName,
+		const generateMetaResult = await generateMeta({
+			spriteContent,
+			outputSpriteFileName: config.outputSpriteFileName,
+			outputMetaFileName: config.outputMetaFileName,
+			outputMetaExportedConstName: config.outputMetaExportedConstName,
 			cssClassName: config.cssClassName,
-			spriteFileName: config.outputSpriteFileName,
-			spriteFilePath: PATH_TO_SPRITE,
 		});
+
+		/* write meta file */
+		const outputMetaFilePath = path.resolve(
+			config.outputMetaFolder,
+			config.outputMetaFileName,
+		);
+		await fs.promises.writeFile(
+			outputMetaFilePath,
+			generateMetaResult.fileContent,
+			"utf8",
+		);
 
 		console.log("✅ SVG icon sprite generation completed successfully!");
 	} catch (error) {

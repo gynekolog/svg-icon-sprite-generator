@@ -1,17 +1,14 @@
-import * as fs from "node:fs/promises";
-
 /**
  * Modifies the SVG file to add the vector-effect="non-scaling-stroke" attribute
  * to the path element.
  */
 export async function modifySvg(options: {
 	// Path to the input SVG file
-	inputFile: string;
+	spriteContent: string;
 	cssClassName: string;
 }) {
-	const content: string = await fs.readFile(options.inputFile, "utf8");
 	// add vector-effect attribute to path element
-	let output = content.replace(
+	let output = options.spriteContent.replace(
 		/<path/g,
 		'<path vector-effect="non-scaling-stroke"',
 	);
@@ -36,6 +33,5 @@ export async function modifySvg(options: {
 		`stroke-width="var(--${options.cssClassName}-stroke-width)"`,
 	);
 
-	// write content
-	await fs.writeFile(options.inputFile, output);
+	return output;
 }
