@@ -21,7 +21,12 @@ function getAllSVGFiles(dir: string, fileList: string[] = []) {
 	return fileList;
 }
 
-export async function generateSprite(config: SvgIconSpriteConfig) {
+export async function generateSprite(
+	config: Pick<
+		SvgIconSpriteConfig,
+		"inputFolder" | "outputSpriteFolder" | "outputSpriteFileName"
+	>,
+) {
 	const INPUT_DIR = path.relative(process.cwd(), config.inputFolder);
 	const spriter = new SVGSpriter({
 		svg: {

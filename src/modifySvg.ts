@@ -3,7 +3,6 @@
  * to the path element.
  */
 export async function modifySvg(options: {
-	// Path to the input SVG file
 	spriteContent: string;
 	cssClassName: string;
 }) {

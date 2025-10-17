@@ -14,7 +14,11 @@ export async function runGenerator(config: SvgIconSpriteConfig): Promise<void> {
 
 	try {
 		console.log("📦 Generating sprite...");
-		let spriteContent = await generateSprite(config);
+		let spriteContent = await generateSprite({
+			inputFolder: config.inputFolder,
+			outputSpriteFolder: config.outputSpriteFolder,
+			outputSpriteFileName: config.outputSpriteFileName,
+		});
 
 		console.log("🎨 Modifying SVG...");
 		spriteContent = await modifySvg({

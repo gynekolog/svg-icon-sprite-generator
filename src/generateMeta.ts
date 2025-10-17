@@ -12,13 +12,10 @@ export async function generateMeta(
 		spriteContent: string;
 	},
 ) {
-	// Generate deterministic hash from sprite content
-	const hash = generateHashFromSprite(options.spriteContent);
-
 	const metaObject = {
 		className: options.cssClassName,
 		spriteFileName: options.outputSpriteFileName,
-		hash: hash,
+		hash: generateHashFromSprite(options.spriteContent),
 	};
 
 	return {

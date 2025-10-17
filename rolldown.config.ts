@@ -15,12 +15,13 @@ const nodeBuiltins = [
 ];
 
 export default defineConfig([
+	// CLI build
 	{
 		input: "src/cli.ts",
 		output: {
 			file: "dist/cli.js",
 			format: "esm",
 		},
-		external: ["svg-sprite", "yargs", ...nodeBuiltins],
+		external: ["svg-sprite", "yargs", "yargs/helpers", ...nodeBuiltins],
 	},
 ]);
