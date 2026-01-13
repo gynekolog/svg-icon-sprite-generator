@@ -12,18 +12,9 @@ import type { SvgIconSpriteConfig } from "./types.js";
 export async function runGenerator(config: SvgIconSpriteConfig): Promise<void> {
 	console.log("🚀 Starting SVG icon sprite generation...");
 
-	const PATH_TO_SPRITE = path.resolve(
-		`${config.outputSpriteFolder}/${config.outputSpriteFileName}`,
-	);
-
 	try {
 		console.log("📦 Generating sprite...");
-		await generateSprite(config);
-
-		if (!fs.existsSync(PATH_TO_SPRITE)) {
-			throw new Error(`Sprite file not found: ${PATH_TO_SPRITE}`);
-		}
-		let spriteContent = fs.readFileSync(PATH_TO_SPRITE, "utf8");
+		let spriteContent = await generateSprite(config);
 
 		console.log("🎨 Modifying SVG...");
 		spriteContent = await modifySvg({

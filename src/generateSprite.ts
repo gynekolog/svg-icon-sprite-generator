@@ -75,25 +75,23 @@ export async function generateSprite(config: SvgIconSpriteConfig) {
 
 	{
 		const { result } = await spriter.compileAsync();
-		/*
-		 * compileAsync returns a Promise but the type definitions are "any".
-		 * Implementation follows the documentation: https://github.com/svg-sprite/svg-sprite?tab=readme-ov-file#usage-pattern
-		 * */
-		const _result = result as Record<
-			string,
-			Record<
-				string,
-				{
-					path: string;
-					contents: NodeJS.ArrayBufferView;
-				}
-			>
-		>;
-		for (const mode of Object.values(_result)) {
-			for (const resource of Object.values(mode)) {
-				fs.mkdirSync(path.dirname(resource.path), { recursive: true });
-				fs.writeFileSync(resource.path, resource.contents);
-			}
+
+		if (!result.symbol) {
+			throw new Error(
+				"The spriter output doesn't contain the symbol output mode.",
+			);
 		}
+		if (!result.symbol.sprite) {
+			throw new Error(
+				"The symbol output mode doesn't contain the sprite resource.",
+			);
+		}
+
+		const contents = result.symbol.sprite.contents;
+		if (!(contents instanceof Buffer)) {
+			throw new Error("Unexpected contents of the symbol output mode sprite.");
+		}
+
+		return contents.toString("utf8");
 	}
 }
