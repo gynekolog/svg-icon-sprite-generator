@@ -11,7 +11,7 @@ export async function modifySvg(options: {
 		/<path/g,
 		'<path vector-effect="non-scaling-stroke"',
 	);
-	// replace fill="none" on the <svg /> element by CSS variable
+	// replace fill="none" by CSS variable
 	output = output.replace(
 		/fill="none"/g,
 		`fill="var(--${options.cssClassName}-fill-svg)"`,
