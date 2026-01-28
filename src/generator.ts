@@ -55,7 +55,6 @@ export async function runGenerator(config: SvgIconSpriteConfig): Promise<void> {
 		const generateMetaResult = await generateMeta({
 			spriteContent,
 			outputSpriteFileName: config.outputSpriteFileName,
-			outputMetaFileName: config.outputMetaFileName,
 			outputMetaExportedConstName: config.outputMetaExportedConstName,
 			cssClassName: config.cssClassName,
 		});

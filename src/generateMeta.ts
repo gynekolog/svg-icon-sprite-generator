@@ -4,10 +4,7 @@ import type { SvgIconSpriteConfig } from "./types.js";
 export async function generateMeta(
 	options: Pick<
 		SvgIconSpriteConfig,
-		| "outputMetaFileName"
-		| "cssClassName"
-		| "outputSpriteFileName"
-		| "outputMetaExportedConstName"
+		"cssClassName" | "outputSpriteFileName" | "outputMetaExportedConstName"
 	> & {
 		spriteContent: string;
 	},
