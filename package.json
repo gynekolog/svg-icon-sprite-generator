@@ -27,10 +27,11 @@
 		"build": "rolldown -c && tsc --emitDeclarationOnly",
 		"prepare": "npm run build && chmod +x dist/cli.js",
 		"prepublishOnly": "npm run build",
+		"test": "vitest --run",
 		"typecheck": "tsc --project tsconfig.json --pretty --noEmit",
 		"lint": "biome check .",
 		"format": "biome check --write .",
-		"check-all": "pnpm run lint && pnpm run format && pnpm run typecheck",
+		"check-all": "pnpm run lint && pnpm run format && pnpm run typecheck && pnpm run test",
 		"dev": "node dist/cli.js"
 	},
 	"dependencies": {
@@ -43,7 +44,8 @@
 		"@types/svg-sprite": "^0.0.39",
 		"@types/yargs": "^17.0.33",
 		"rolldown": "1.0.0-beta.43",
-		"typescript": "^5.9.3"
+		"typescript": "^5.9.3",
+		"vitest": "^3.2.4"
 	},
 	"engines": {
 		"node": ">=22.12.0",
