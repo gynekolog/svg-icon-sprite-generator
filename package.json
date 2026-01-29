@@ -35,6 +35,7 @@
 		"dev": "node dist/cli.js"
 	},
 	"dependencies": {
+		"cheerio": "^1.2.0",
 		"svg-sprite": "3.0.0-rc3",
 		"vinyl": "^3.0.1",
 		"yargs": "^18.0.0"
