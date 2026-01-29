@@ -24,4 +24,13 @@ export default defineConfig([
 		},
 		external: ["svg-sprite", "yargs", "yargs/helpers", ...nodeBuiltins],
 	},
+	// package build
+	{
+		input: "src/main.ts",
+		output: {
+			file: "dist/main.js",
+			format: "esm",
+		},
+		external: ["svg-sprite", "yargs", "yargs/helpers", ...nodeBuiltins],
+	},
 ]);
