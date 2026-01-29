@@ -4,8 +4,8 @@
 	"description": "A TypeScript package for generating SVG icon sprites with automatic ID generation and configuration constants",
 	"sideEffects": false,
 	"type": "module",
-	"main": "dist/cli.js",
-	"types": "dist/types.d.ts",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"files": [
 		"dist",
 		"README.md"
