@@ -31,10 +31,10 @@ describe("modifySvg", () => {
 		});
 
 		expect(result1).toMatchInlineSnapshot(
-			`"<svg><path vector-effect="non-scaling-stroke" /></svg>"`,
+			`"<svg><path vector-effect="non-scaling-stroke"/></svg>"`,
 		);
 		expect(result2).toMatchInlineSnapshot(
-			`"<svg><path vector-effect="non-scaling-stroke" d="..."/></svg>"`,
+			`"<svg><path d="..." vector-effect="non-scaling-stroke"/></svg>"`,
 		);
 		expect(result3).toMatchInlineSnapshot(
 			`"<svg><path d="..." vector-effect="non-scaling-stroke" fill="green"/></svg>"`,
