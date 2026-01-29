@@ -24,6 +24,7 @@ export default defineConfig([
 		external: [
 			"svg-sprite",
 			"vinyl",
+			"cheerio",
 			"yargs",
 			"yargs/helpers",
 			...nodeBuiltins,
