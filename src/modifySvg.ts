@@ -10,23 +10,23 @@ export async function modifySvg(options: {
 }) {
 	const $ = cheerio.load(options.spriteContent, { xml: true });
 
-	// add vector-effect attribute to path element
+	// set vector-effect attribute of path elements to "non-scaling-stroke"
 	$("path").attr("vector-effect", "non-scaling-stroke");
 
 	$("*").each((_, el) => {
-		// replace fill="none" by CSS variable
+		// replace fill value "none" with CSS variable
 		if ($(el).attr("fill") === "none") {
 			$(el).attr("fill", `var(--${options.cssClassName}-fill-svg)`);
 		}
-		// replace fill color by CSS variable
+		// replace fill value "currentColor" with CSS variable
 		if ($(el).attr("fill") === "currentColor") {
 			$(el).attr("fill", `var(--${options.cssClassName}-fill)`);
 		}
-		// replace stroke color by CSS variable
+		// replace stroke value "currentColor" with CSS variable
 		if ($(el).attr("stroke") === "currentColor") {
 			$(el).attr("stroke", `var(--${options.cssClassName}-stroke)`);
 		}
-		// replace stroke-width by CSS variable
+		// replace stroke-width values with CSS variable
 		if ($(el).attr("stroke-width")) {
 			$(el).attr("stroke-width", `var(--${options.cssClassName}-stroke-width)`);
 		}
