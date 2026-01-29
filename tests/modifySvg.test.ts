@@ -4,7 +4,7 @@ import { modifySvg } from "../src/modifySvg";
 type Options = Parameters<typeof modifySvg>[0];
 
 describe("modifySvg", () => {
-	it("should add vector-effect attribute to path element", async () => {
+	it('should add/set vector-effect attribute of path elements to "non-scaling-stroke"', async () => {
 		const spriteContent1 = "<svg><path /></svg>";
 		const spriteContent2 = '<svg><path d="..."/></svg>';
 		const spriteContent3 =
@@ -44,7 +44,7 @@ describe("modifySvg", () => {
 		);
 	});
 
-	it('should replace fill="none" by CSS variable', async () => {
+	it('should replace fill value "none" with CSS variable', async () => {
 		const spriteContent = '<svg><symbol fill="none"/></svg>';
 		const cssClassName = "test-icon";
 		const options: Options = {
@@ -59,7 +59,7 @@ describe("modifySvg", () => {
 		);
 	});
 
-	it("should replace fill color by CSS variable", async () => {
+	it('should replace fill value "currentColor" with CSS variable', async () => {
 		const spriteContent = '<svg><symbol fill="currentColor"/></svg>';
 		const cssClassName = "test-icon";
 		const options: Options = {
@@ -74,7 +74,7 @@ describe("modifySvg", () => {
 		);
 	});
 
-	it("should replace stroke color by CSS variable", async () => {
+	it('should replace stroke value "currentColor" with CSS variable', async () => {
 		const spriteContent = '<svg><symbol stroke="currentColor"/></svg>';
 		const cssClassName = "test-icon";
 		const options: Options = {
@@ -89,7 +89,7 @@ describe("modifySvg", () => {
 		);
 	});
 
-	it("should replace stroke-width by CSS variable", async () => {
+	it("should replace stroke-width values with CSS variable", async () => {
 		const spriteContent1 = '<svg><symbol stroke-width="12"/></svg>';
 		const spriteContent2 = '<svg><symbol stroke-width="12px"/></svg>';
 		const spriteContent3 = '<svg><symbol stroke-width="12%"/></svg>';
