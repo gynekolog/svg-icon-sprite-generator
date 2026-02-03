@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.9 (2026-02-03)
+Updated dev dependencies.
+
+### Added
+- tests
+
 ## 0.0.8 (2026-02-03)
 ### Added
 - Programmatic API
