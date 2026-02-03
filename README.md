@@ -120,33 +120,16 @@ Optional:
 ```typescript
 import { runGenerator, DEFAULT_CONFIG } from "svg-icon-sprite-generator";
 
-// inputFolder, outputSpriteFolder, and outputIdsFolder are required
 await runGenerator({
-	inputFolder: "./my-icons",
-	outputSpriteFolder: "./dist",
-	outputIdsFolder: "./dist",
-	// outputMetaFolder will default to outputIdsFolder
-	// Optional: override defaults
-	outputSpriteFileName: "my-sprite.svg",
-	cssClassName: "my-icon",
-	// Use defaults for other options
-	...DEFAULT_CONFIG,
-});
-
-// Or build config with defaults and custom folders
-const config = {
 	...DEFAULT_CONFIG,
 	// Required
-	inputFolder: "./my-icons",
-	outputSpriteFolder: "./dist",
-	outputIdsFolder: "./types",
-	// Optional: separate folders for different file types
-	outputMetaFolder: "./config",
+	inputFolder: "./icons",
+	outputSpriteFolder: "./build",
+	outputIdsFolder: "./build",
+	outputMetaFolder: "./build",
 	// Optional overrides
 	cssClassName: "my-icon",
-};
-
-await runGenerator(config);
+});
 ```
 
 ## Configuration Options
