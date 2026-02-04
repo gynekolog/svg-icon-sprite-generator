@@ -21,6 +21,12 @@ export default defineConfig([
 			dir: "dist",
 			format: "esm",
 		},
-		external: ["svg-sprite", "yargs", "yargs/helpers", ...nodeBuiltins],
+		external: [
+			"svg-sprite",
+			"vinyl",
+			"yargs",
+			"yargs/helpers",
+			...nodeBuiltins,
+		],
 	},
 ]);
