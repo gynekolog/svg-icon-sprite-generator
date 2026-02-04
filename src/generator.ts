@@ -3,6 +3,7 @@ import * as path from "node:path";
 import { generateIds } from "./generateIDs.js";
 import { generateMeta } from "./generateMeta.js";
 import { generateSprite } from "./generateSprite.js";
+import { getAllSVGFiles } from "./getAllSVGFiles.js";
 import { modifySvg } from "./modifySvg.js";
 import type { SvgIconSpriteConfig } from "./types.js";
 
@@ -13,9 +14,12 @@ export async function runGenerator(config: SvgIconSpriteConfig): Promise<void> {
 	console.log("🚀 Starting SVG icon sprite generation...");
 
 	try {
+		console.log("🔎 Collecting input files...");
+		const inputFiles = await getAllSVGFiles(config.inputFolder);
+
 		console.log("📦 Generating sprite...");
 		let spriteContent = await generateSprite({
-			inputFolder: config.inputFolder,
+			inputFiles,
 			outputSpriteFolder: config.outputSpriteFolder,
 			outputSpriteFileName: config.outputSpriteFileName,
 		});
