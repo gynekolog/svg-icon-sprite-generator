@@ -1,14 +1,12 @@
 import type { SvgIconSpriteConfig } from "./types.js";
 
 /**
- * Generate a TypeScript file with all the IDs from an SVG file.
+ * Generate a TypeScript file content with all the IDs from the SVG sprite file content.
  * Only extracts IDs from <symbol> elements at the top level.
  *
- * @param options - Configuration for generating IDs file
- * @property inputFile - Path to the input SVG file
- * @property outputDir - Directory to write the generated file
- * @property outputConstName - Name of the exported constant
- * @property outputFileName - File name of the generated file
+ * @param options - Configuration for generating IDs
+ * @property spriteContent - Content of an SVG file
+ * @property outputIdsExportedConstName - Name of the exported constant
  */
 export async function generateIds(
 	options: Pick<SvgIconSpriteConfig, "outputIdsExportedConstName"> & {
