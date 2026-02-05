@@ -1,36 +1,42 @@
+import * as cheerio from "cheerio";
+
 /**
- * Modifies the SVG file to add the vector-effect="non-scaling-stroke" attribute
- * to the path element.
+ * Modifies the SVG file content
+ * - adds/sets the vector-effect="non-scaling-stroke" attribute to all path elements
+ * - replaces fill="none", fill="currentColor", stroke="currentColor",
+ *   and stroke-width attributes with CSS variables
  */
 export async function modifySvg(options: {
 	spriteContent: string;
 	cssClassName: string;
 }) {
-	// add vector-effect attribute to path element
-	let output = options.spriteContent.replace(
-		/<path/g,
-		'<path vector-effect="non-scaling-stroke"',
-	);
-	// replace fill="none" by CSS variable
-	output = output.replace(
-		/fill="none"/g,
-		`fill="var(--${options.cssClassName}-fill-svg)"`,
-	);
-	// replace fill color by CSS variable
-	output = output.replace(
-		/fill="currentColor"/g,
-		`fill="var(--${options.cssClassName}-fill)"`,
-	);
-	// replace stroke color by CSS variable
-	output = output.replace(
-		/stroke="currentColor"/g,
-		`stroke="var(--${options.cssClassName}-stroke)"`,
-	);
-	// replace stroke-width by CSS variable
-	output = output.replace(
-		/stroke-width="([0-9.]*)"/g,
-		`stroke-width="var(--${options.cssClassName}-stroke-width)"`,
-	);
+	const $ = cheerio.load(options.spriteContent, {
+		xml: {
+			decodeEntities: false,
+		},
+	});
 
-	return output;
+	// add/set vector-effect attribute of path elements to "non-scaling-stroke"
+	$("path").attr("vector-effect", "non-scaling-stroke");
+
+	$("*").each((_, el) => {
+		// replace fill value "none" with CSS variable
+		if ($(el).attr("fill") === "none") {
+			$(el).attr("fill", `var(--${options.cssClassName}-fill-svg)`);
+		}
+		// replace fill value "currentColor" with CSS variable
+		if ($(el).attr("fill") === "currentColor") {
+			$(el).attr("fill", `var(--${options.cssClassName}-fill)`);
+		}
+		// replace stroke value "currentColor" with CSS variable
+		if ($(el).attr("stroke") === "currentColor") {
+			$(el).attr("stroke", `var(--${options.cssClassName}-stroke)`);
+		}
+		// replace stroke-width values with CSS variable
+		if ($(el).attr("stroke-width")) {
+			$(el).attr("stroke-width", `var(--${options.cssClassName}-stroke-width)`);
+		}
+	});
+
+	return $.xml();
 }
