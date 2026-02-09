@@ -1,6 +1,6 @@
 {
 	"name": "svg-icon-sprite-generator",
-	"version": "0.0.9",
+	"version": "0.0.10",
 	"description": "A TypeScript package for generating SVG icon sprites with automatic ID generation and configuration constants",
 	"sideEffects": false,
 	"type": "module",

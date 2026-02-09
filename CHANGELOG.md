@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.10 (2026-02-00)
+
+### Changed
+- Rewrite modifySvg to use Cheerio library instead of regex, which allows for more robust and accurate modifications to SVG files.
+- Extract getAllSvgFiles functions into separate file.
+
 ## 0.0.9 (2026-02-03)
 Updated dev dependencies.
 
